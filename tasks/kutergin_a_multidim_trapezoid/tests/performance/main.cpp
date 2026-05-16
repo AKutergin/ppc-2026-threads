@@ -1,5 +1,3 @@
-#include <gtest/gtest.h>
-
 #include <cmath>
 #include <numbers>
 #include <utility>
@@ -8,6 +6,7 @@
 #include "kutergin_a_multidim_trapezoid/common/include/common.hpp"
 #include "kutergin_a_multidim_trapezoid/omp/include/ops_omp.hpp"
 #include "kutergin_a_multidim_trapezoid/seq/include/ops_seq.hpp"
+#include "kutergin_a_multidim_trapezoid/stl/include/ops_stl.hpp"
 #include "kutergin_a_multidim_trapezoid/tbb/include/ops_tbb.hpp"
 #include "util/include/perf_test_util.hpp"
 
@@ -50,10 +49,10 @@ namespace {
 
 const auto kAllPerfTasks =
     ppc::util::MakeAllPerfTasks<InType, KuterginAMultidimTrapezoidSEQ, KuterginAMultidimTrapezoidOMP,
-                                KuterginAMultidimTrapezoidTBB>(PPC_SETTINGS_kutergin_a_multidim_trapezoid);
+                                KuterginAMultidimTrapezoidTBB, KuterginAMultidimTrapezoidSTL>(
+        PPC_SETTINGS_kutergin_a_multidim_trapezoid);
 
 INSTANTIATE_TEST_SUITE_P(KuterginATrapezoidPerfAll, KuterginATrapezoidPerfTest,
                          ppc::util::TupleToGTestValues(kAllPerfTasks), KuterginATrapezoidPerfTest::CustomPerfTestName);
-
 }  // namespace
 }  // namespace kutergin_a_multidim_trapezoid
