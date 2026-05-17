@@ -26,11 +26,9 @@ class KuterginAMultidimTrapezoidALL : public BaseTask {
 
  private:
   void DistributeData(int rank, size_t &dims);
-  
-  static double CalculateChunkSum(size_t start_idx, size_t end_idx, 
-                                  const std::vector<double> &h,
-                                  const std::vector<std::pair<double, double>> &limits, 
-                                  int n_steps,
+
+  static double CalculateChunkSum(size_t start_idx, size_t end_idx, const std::vector<double> &h,
+                                  const std::vector<std::pair<double, double>> &limits, int n_steps,
                                   const std::function<double(const std::vector<double> &)> &func);
 
   InType local_input_;

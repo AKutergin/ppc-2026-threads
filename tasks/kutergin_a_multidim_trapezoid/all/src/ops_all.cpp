@@ -112,7 +112,7 @@ bool KuterginAMultidimTrapezoidALL::PostProcessingImpl() {
   if (ppc::util::IsUnderMpirun()) {
     MPI_Bcast(&res_, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   }
-  
+
   GetOutput() = res_;
   return true;
 }
@@ -132,7 +132,7 @@ void KuterginAMultidimTrapezoidALL::DistributeData(int rank, size_t &dims) {
   if (rank != 0) {
     limits.resize(dims);
   }
-  
+
   for (size_t i = 0; i < dims; ++i) {
     MPI_Bcast(&limits[i].first, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&limits[i].second, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -140,11 +140,10 @@ void KuterginAMultidimTrapezoidALL::DistributeData(int rank, size_t &dims) {
   MPI_Bcast(&n_steps, 1, MPI_INT, 0, MPI_COMM_WORLD);
 }
 
-double KuterginAMultidimTrapezoidALL::CalculateChunkSum(size_t start_idx, size_t end_idx, 
-                                                       const std::vector<double> &h,
-                                                       const std::vector<std::pair<double, double>> &limits,
-                                                       int n_steps,
-                                                       const std::function<double(const std::vector<double> &)> &func) {
+double KuterginAMultidimTrapezoidALL::CalculateChunkSum(
+    size_t start_idx, size_t end_idx, const std::vector<double> &h,
+    const std::vector<std::pair<double, double>> &limits, int n_steps,
+    const std::function<double(const std::vector<double> &)> &func) {
   if (start_idx >= end_idx) {
     return 0.0;
   }
